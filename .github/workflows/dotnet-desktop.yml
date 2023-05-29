@@ -1,0 +1,29 @@
+name: WebDriver C# Project Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.x'  # Specify the desired .NET version
+
+      - name: Build and test
+        run: dotnet test --configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./test-results
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: test-results/**/*.trx
