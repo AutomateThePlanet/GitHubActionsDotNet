@@ -20,9 +20,10 @@ jobs:
           dotnet-version: '6.x'  # Specify the desired .NET version
 
       - name: Build and test
-        run: dotnet test --configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./TestResults
+        run: dotnet test --configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./test-results
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
         with:
-          testResultsPath: '**/TestResults/*.trx'
+          files: test-results/**/*.trx
