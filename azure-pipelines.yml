@@ -25,4 +25,4 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*.csproj'
-    arguments: '--configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./test-results'
+    arguments: '--configuration Release --logger "trx;LogFileName=testresults.trx"
