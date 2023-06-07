@@ -1,0 +1,24 @@
+schedules:
+  - cron: "0 22 * * SUN-THU"
+    displayName: Build every MON-FRI at 01:00 EET
+    always : true
+    branches:
+      include:
+        - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/$(TEST-PROJECT-PATH)'
+    arguments: '--configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./test-results'
