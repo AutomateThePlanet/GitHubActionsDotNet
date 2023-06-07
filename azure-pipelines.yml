@@ -24,5 +24,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/**'
+    projects: '**/*.csproj'
     arguments: '--configuration Release --logger "trx;LogFileName=testresults.trx" --results-directory ./test-results'
